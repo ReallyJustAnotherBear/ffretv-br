@@ -5744,8 +5744,6 @@ case $target_os in
 	if [ x`uname -m` = x"armv7l" ]; then
 	    disable vaapi
 	fi
-	prefix_default="/usr"
-	runprefix_default="/usr"
         ;;
     irix*)
         target_os=irix
