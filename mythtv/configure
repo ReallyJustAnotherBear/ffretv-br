@@ -5741,6 +5741,7 @@ case $target_os in
         enable libudev
         enable libuuid
         enable pic
+	disable qtdbus
 	if [ x`uname -m` = x"armv7l" ]; then
 	    disable vaapi
 	fi
