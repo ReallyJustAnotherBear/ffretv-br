@@ -367,11 +367,13 @@ using_frontend {
         SOURCES += videoout_omx.cpp
         contains( HAVE_OPENMAX_BROADCOM, yes ) {
             DEFINES += OMX_SKIP64BIT USING_BROADCOM
-            # Raspbian
-            QMAKE_CXXFLAGS += -isystem /opt/vc/include -isystem /opt/vc/include/IL -isystem /opt/vc/include/interface/vcos/pthreads -isystem /opt/vc/include/interface/vmcs_host/linux
-            # Ubuntu
-            QMAKE_CXXFLAGS += -isystem /usr/include/IL -isystem /usr/include/interface/vcos/pthreads -isystem /usr/include/interface/vmcs_host/linux
-            LIBS += -L/opt/vc/lib -lopenmaxil
+		sysroot.path = $$_PRO_FILE_PWD_/../../../../../host/arm-buildroot-linux-gnueabihf/sysroot
+	        exists($${sysroot.path}/usr/lib/libbrcmEGL.so) {
+                INCLUDEPATH += $${sysroot.path}/usr/include
+            	INCLUDEPATH += $${sysroot.path}/usr/include/IL
+            	INCLUDEPATH += $${sysroot.path}/usr/include/interface/vcos/pthreads
+            	INCLUDEPATH += $${sysroot.path}/usr/include/interface/vmcs_host/linux 
+            	LIBS += -L$${sysroot.path}/usr/lib -lopenmaxil
         }
         contains( HAVE_OPENMAX_BELLAGIO, yes ) {
             DEFINES += USING_BELLAGIO
@@ -938,8 +940,13 @@ using_openmax {
     contains( HAVE_OPENMAX_BROADCOM, yes ) {
         using_opengl {
             # For raspberry Pi Raspbian
-            exists(/opt/vc/lib/libbrcmEGL.so) {
-                LIBS += -L/opt/vc/lib/ -lbrcmGLESv2 -lbrcmEGL
+		sysroot.path = $$_PRO_FILE_PWD_/../../../../../host/arm-buildroot-linux-gnueabihf/sysroot
+                exists($${sysroot.path}/usr/lib/libbrcmEGL.so) {
+            	INCLUDEPATH += $${sysroot.path}/usr/include
+            	INCLUDEPATH += $${sysroot.path}/usr/include/IL
+            	INCLUDEPATH += $${sysroot.path}/usr/include/interface/vcos/pthreads
+            	INCLUDEPATH += $${sysroot.path}/usr/include/interface/vmcs_host/linux 
+            	LIBS += -L$${sysroot.path}/usr/lib -lbrcmGLESv2 -lbrcmEGL
             }
         }
     }

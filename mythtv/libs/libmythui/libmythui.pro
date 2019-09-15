@@ -191,9 +191,9 @@ using_opengl {
 using_openmax {
     contains( HAVE_OPENMAX_BROADCOM, yes ) {
         using_opengl {
-            # For raspberry Pi Raspbian
-            exists(/opt/vc/lib/libbrcmEGL.so) {
-                LIBS += -L/opt/vc/lib/ -lbrcmGLESv2 -lbrcmEGL
+		sysroot.path = $$_PRO_FILE_PWD_/../../../../../host/arm-buildroot-linux-gnueabihf/sysroot
+            	exists($${sysroot.path}/usr/lib/libbrcmEGL.so) {
+                LIBS += -L$${sysroot.path}/usr/lib -lbrcmGLESv2 -lbrcmEGL
             }
         }
     }
