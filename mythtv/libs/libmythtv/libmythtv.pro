@@ -374,11 +374,12 @@ using_frontend {
             	INCLUDEPATH += $${sysroot.path}/usr/include/interface/vcos/pthreads
             	INCLUDEPATH += $${sysroot.path}/usr/include/interface/vmcs_host/linux 
             	LIBS += -L$${sysroot.path}/usr/lib -lopenmaxil
-        }
+         }
         contains( HAVE_OPENMAX_BELLAGIO, yes ) {
             DEFINES += USING_BELLAGIO
             #LIBS += -lomxil-bellagio
-        }
+         }
+      }
     }
 
     using_libass {
