@@ -6773,27 +6773,27 @@ enabled taglib && $(pkg-config --exists taglib) ||
     die "ERROR! You must have the taglib library installed to compile MythTV."
 
 # Check for taglib for libmythmetadata
-if enabled taglib; then
-    taglib_minor="0"
-    if test x`which taglib-config` != x"" ; then
-        taglib_minor=`taglib-config --version | cut -d. -f2`
-        if test x"$taglib_minor" = x"" ; then
-            echo "Can't find taglib-config. Assuming 1.7 or later."
-            taglib_minor="7"
-        fi
-        if test $target_os = android ; then
-            tagprefix=`taglib-config --prefix`
-        else
-            tagprefix=${sysroot}`taglib-config --prefix`
-        fi
-        tagincludes="-I${tagprefix}/include"
-        taglibs=`taglib-config --libs`
-    fi
+#if enabled taglib; then
+#    taglib_minor="0"
+#    if test x`which taglib-config` != x"" ; then
+#        taglib_minor=`taglib-config --version | cut -d. -f2`
+#        if test x"$taglib_minor" = x"" ; then
+#            echo "Can't find taglib-config. Assuming 1.7 or later."
+#            taglib_minor="7"
+#        fi
+#        if test $target_os = android ; then
+#            tagprefix=`taglib-config --prefix`
+#        else
+#            tagprefix=${sysroot}`taglib-config --prefix`
+#        fi
+#        tagincludes="-I${tagprefix}/include"
+#        taglibs=`taglib-config --libs`
+#    fi
 
 #    if test $taglib_minor -lt 7 || ! check_class_headers_cpp "taglib/fileref.h stdlib.h" TagLib::FileRef $tagincludes $taglibs -lstdc++; then
 #        die "ERROR: cannot find taglib 1.7 or later."
 #    fi
-fi
+#fi
 
 # Attempt to use libudev for mediamonitor
 enabled libudev && check_lib2 libudev.h udev_new -ludev || disable libudev
@@ -7644,10 +7644,6 @@ int main(void) {
     return 0;
 }
 EOF
-if enabled taglib; then
-	echo "CONFIG_TAGLIB_INCLUDES=${sysinclude}/taglib" >> $TMPMAK
-	echo "CONFIG_TAGLIB_LIBS=-L${sysroot}/usr/lib -ltag" >> $TMPMAK
-fi
 
 enabled x11 && check_lib X11/Xlib.h XQueryExtension -lX11 || disable x11
 enabled xrandr && check_lib X11/extensions/Xrandr.h XRRSelectInput -lXrandr || disable xrandr
@@ -8714,6 +8710,11 @@ if enabled x11; then
   if [ -d $x11_path ] ; then
     append CONFIG_INCLUDEPATH "$x11_path"
   fi
+fi
+
+if enabled taglib; then
+	echo "CONFIG_TAGLIB_INCLUDES=${sysinclude}/taglib" >> $TMPMAK
+	echo "CONFIG_TAGLIB_LIBS=-L${sysroot}/usr/lib -ltag" >> $TMPMAK
 fi
 
 ##
