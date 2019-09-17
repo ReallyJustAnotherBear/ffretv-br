@@ -6769,6 +6769,9 @@ if enabled libuuid ; then
   fi
 fi
 
+enabled taglib && $(pkg-config --exists taglib) ||
+    die "ERROR! You must have the taglib library installed to compile MythTV."
+
 # Check for taglib for libmythmetadata
 if enabled taglib; then
     taglib_minor="0"
@@ -7512,6 +7515,7 @@ fi
 # Check that all MythTV build "requirements" are met:
 enabled exiv2 && $(pkg-config --exists exiv2) ||
     die "ERROR! You must have the Exiv2 image tag reader library installed to compile MythTV."
+
 
 # Qt dependency checks
 if test $target_os = mingw32 ; then
