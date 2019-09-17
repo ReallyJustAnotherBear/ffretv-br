@@ -6697,27 +6697,28 @@ check_type "vdpau/vdpau.h" "VdpPictureInfoHEVC"
 check_cpp_condition windows.h "!WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)" && enable winrt || disable winrt
 
 # check for OpenMAX header & lib
-if  enabled openmax ; then
-    openmax_was_enabled=Y
-fi
-if ! disabled openmax; then
-    test -f ${sysroot}${includedir}/IL/OMX_Core.h && enable openmax
-fi
-if ! disabled openmax; then
-    if test -f ${sysroot}${includedir}/IL/OMX_Broadcom.h \
-        && test -f ${sysroot}${libdir}/libopenmaxil.so ; then
+#if  enabled openmax ; then
+#    openmax_was_enabled=Y
+#fi
+#if ! disabled openmax; then
+#    test -f ${sysroot}${includedir}/IL/OMX_Core.h && 
+enable openmax
+#fi
+#if ! disabled openmax; then
+#    if test -f ${sysroot}${includedir}/IL/OMX_Broadcom.h \
+#        && test -f ${sysroot}${libdir}/libopenmaxil.so ; then
         enable openmax_broadcom
-    elif test -f ${sysroot}${includedir}/bellagio/omxcore.h \
-        && test -f ${sysroot}${libdir}/libomxil-bellagio.so; then
-        enable openmax_bellagio
-    else
-        disable openmax
-    fi
-fi
+#    elif test -f ${sysroot}${includedir}/bellagio/omxcore.h \
+#        && test -f ${sysroot}${libdir}/libomxil-bellagio.so; then
+#        enable openmax_bellagio
+#    else
+#        disable openmax
+#    fi
+#fi
 
-if  test "$openmax_was_enabled" = "Y" && disabled openmax ; then
-    die "ERROR - Unable to enable openmax"
-fi
+#if  test "$openmax_was_enabled" = "Y" && disabled openmax ; then
+#    die "ERROR - Unable to enable openmax"
+#fi
 
 if ! disabled w32threads && ! enabled pthreads; then
     check_func_headers "windows.h process.h" _beginthreadex &&
