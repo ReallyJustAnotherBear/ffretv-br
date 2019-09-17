@@ -7640,10 +7640,9 @@ int main(void) {
     return 0;
 }
 EOF
-
 if enabled taglib; then
-    taglib_include=`taglib-config --prefix`/include/taglib
-    taglib_libs=`taglib-config --libs`
+	echo "CONFIG_TAGLIB_INCLUDES=${sysinclude}/taglib" >> $TMPMAK
+	echo "CONFIG_TAGLIB_LIBS=-L${sysroot}/usr/lib -ltag" >> $TMPMAK
 fi
 
 enabled x11 && check_lib X11/Xlib.h XQueryExtension -lX11 || disable x11
@@ -8707,20 +8706,17 @@ if enabled libmp3lame; then
   append CCONFIG "using_libmp3lame"
 fi
 
-if enabled taglib; then
-    echo "CONFIG_TAGLIB_INCLUDES=$taglib_include" >> $TMPMAK
-    echo "CONFIG_TAGLIB_LIBS=$taglib_libs" >> $TMPMAK
-fi
-
 if enabled x11; then
   if [ -d $x11_path ] ; then
     append CONFIG_INCLUDEPATH "$x11_path"
   fi
 fi
 
+##
 if ! enabled darwin && enabled opengl; then
   echo "CONFIG_OPENGL_LIBS=$gl_lib $glu_lib" >> $TMPMAK
 fi
+##
 
 if test x"$PERL_CONFIG_OPTS" != x"" ; then
   echo "PERL_CONFIG_OPTS=$PERL_CONFIG_OPTS" >> $TMPMAK
