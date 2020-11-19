@@ -89,7 +89,7 @@ uint EITHelper::ProcessEvents(void)
     if (!insertCount)
         return 0;
 
-    if (incomplete_events.empty()
+    if (incomplete_events.empty())
     {
         LOG(VB_EIT, LOG_INFO,
             LOC + QString("Added %1 events -- complete: %2 incomplete: %3")
