@@ -203,7 +203,6 @@ void EITHelper::AddETT(uint atsc_major, uint atsc_minor,
             delete [] (*it).desc;
             (*eits_it).erase(it);
 
-            if (completed_event) return;
         }
     }
 }
