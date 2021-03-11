@@ -1,2 +1,2 @@
 # ffretv-br
-buildroot version 
+buildroot specific version for "ffretv-br-thingos-29fixes' project. 
